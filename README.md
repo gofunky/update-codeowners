@@ -35,3 +35,43 @@ It should suffice to trigger it on few event types of pull request event only.
 That also gives the author the possibility to remove themselves from the owners list optionally.
 
 <!-- add-file: ./.github/workflows/example.yml -->
+``` yml markdown-add-files
+name: codeowners
+
+on:
+  pull_request_target:
+    branches: 
+      - master
+    types: 
+      - ready_for_review
+      - review_request_removed
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout code
+      uses: actions/checkout@v2.3.2
+      with:
+        repository: ${{ github.event.pull_request.head.repo.full_name }}
+        ref: ${{ github.head_ref }}
+    - name: update code owners
+      uses: gofunky/update-codeowners@master
+      with:
+        distribution: 25
+    - name: commit changed files
+      id: committed
+      uses: stefanzweifel/git-auto-commit-action@v4.5.1
+      with:
+        commit_message: 'chore(meta): update code owners'
+        branch: ${{ github.head_ref }}
+        file_pattern: 'CODEOWNERS'
+    - uses: christianvuerings/add-labels@v1.1
+      if: ${{ steps.committed.outputs.changes_detected == 'true' }}
+      with:
+        labels: |
+          owned
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+```
