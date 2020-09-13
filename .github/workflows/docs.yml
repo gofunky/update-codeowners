@@ -1,0 +1,98 @@
+name: docs
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - '**.md'
+      - '**example**'
+      - '**/docs.yml'
+  pull_request_target:
+    branches:
+      - master
+
+jobs:
+  examples:
+    name: include examples
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: check out code
+        uses: actions/checkout@v2.3.2
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.head_ref }}
+          token: ${{ secrets.PAT }}
+      - name: update examples in markdown files
+        uses: nwylynko/markdown-add-files@v2.1.1
+      - name: create pull request
+        if: github.head_ref == ''
+        uses: peter-evans/create-pull-request@v3.3.0
+        with:
+          commit-message: 'docs(markdown): include and update examples'
+          title: 'docs(markdown): include and update examples'
+          body: |
+            This pull requests includes and updates file-based examples in markdown files.
+          labels: |
+            chore
+            documentation
+          branch: 'markdown-examples'
+      - name: commit changed files
+        id: committed
+        if: ${{ github.head_ref != '' }}
+        uses: stefanzweifel/git-auto-commit-action@v4.5.0
+        with:
+          commit_message: 'docs(markdown): include and update examples'
+          branch: ${{ github.head_ref }}
+          file_pattern: '*.md'
+      - name: add label to pull request
+        uses: christianvuerings/add-labels@v1.1
+        if: steps.committed.outputs.changes_detected == 'true'
+        with:
+          labels: |
+            documentation
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: upload updated markdown files as artifacts
+        uses: actions/upload-artifact@v2.1.4
+        with:
+          name: markdown
+          path: '*.md'
+  update:
+    name: update gh-pages
+    if: github.head_ref == ''
+    needs:
+      - markdown
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: check out code
+        uses: actions/checkout@v2.3.2
+        with:
+          ref: gh-pages
+          token: ${{ secrets.PAT }}
+      - name: download markdown artifacts
+        uses: actions/download-artifact@v2.0.5
+        with:
+          name: markdown
+      - name: copy contents to index
+        run: |
+          echo "---" > index.md
+          echo "title: Overview" >> index.md
+          echo "---" >> index.md
+          cat README.md >> index.md
+          sed -i 's/markdown-add-files//g' index.md
+      - name: commit changed files
+        uses: stefanzweifel/git-auto-commit-action@v4.4.1
+        with:
+          commit_user_name: ${{ github.event.pusher.name }}
+          commit_user_email: ${{ github.event.pusher.email }}
+          commit_message: |
+            docs: update overview
+            this update was initiated by commit ${{ github.sha }}
+          file_pattern: 'index.md'
