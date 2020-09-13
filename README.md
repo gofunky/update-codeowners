@@ -45,6 +45,8 @@ on:
     types: 
       - ready_for_review
       - review_request_removed
+      - reopened
+      - labeled
 
 jobs:
   update:
@@ -65,7 +67,7 @@ jobs:
       with:
         commit_message: 'chore(meta): update code owners'
         branch: ${{ github.head_ref }}
-        file_pattern: 'CODEOWNERS'
+        file_pattern: '.github/CODEOWNERS'
     - uses: christianvuerings/add-labels@v1.1
       if: ${{ steps.committed.outputs.changes_detected == 'true' }}
       with:
