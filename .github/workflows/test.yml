@@ -1,0 +1,29 @@
+name: test
+
+on:
+  push:
+    branches: [ master ]
+  pull_request_target:
+    branches: [ master ]
+
+jobs:
+  example:
+    name: this repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v2.3.2
+        with:
+          ref: master
+      - name: update code owners
+        uses: ./
+        with:
+          distribution: 50
+          path: .github/CODEOWNERS.test
+      - name: verify contents of generated file
+        run: |
+          grep -q ".gitignore matthias.fax@gmail.com" .github/CODEOWNERS.test
+      - uses: actions/upload-artifact@v2.1.4
+        with:
+          name: test
+          path: .github/CODEOWNERS.test
