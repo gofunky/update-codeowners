@@ -65,7 +65,7 @@ jobs:
     name: update gh-pages
     if: github.head_ref == ''
     needs:
-      - markdown
+      - examples
     runs-on: ubuntu-latest
     defaults:
       run:
