@@ -1,4 +1,4 @@
-# tuplip build and push action
+# update code owners action
 A [GitHub Action](https://github.com/features/actions) that uses [git-fame](https://pypi.org/project/git-fame) to generate and update GitHub's CODEOWNERS file based on the git fame of files.
 
 ## What does it do?
