@@ -22,8 +22,12 @@ jobs:
           distribution: 50
           path: .github/CODEOWNERS.test
       - name: verify contents of generated file
-        run: |
-          grep -q ".gitignore matthias.fax@gmail.com" .github/CODEOWNERS.test
+        id: verify
+        continue-on-error: true
+        run: grep -q ".gitignore matthias.fax@gmail.com" .github/CODEOWNERS.test
+      - name: verify contents of generated file (fallback)
+        if: steps.verify.outputs.status != 'success'
+        run: grep -q ".gitignore matfax@users.noreply.github.com" .github/CODEOWNERS.test
       - uses: actions/upload-artifact@v2.1.4
         with:
           name: test
