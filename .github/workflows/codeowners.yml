@@ -6,6 +6,7 @@ on:
       - master
     types: 
       - ready_for_review
+      - review_request_removed
 
 jobs:
   update:
