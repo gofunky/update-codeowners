@@ -24,38 +24,45 @@ The default uses the path to the `.github` directory.
 ## Example
 
 This is a typical example for a pull request workflow.
-It should suffice to trigger it on a single type of pull request event only.
-This also gives the author the possibility to remove themselves optionally.
+It should suffice to trigger it on few event types of pull request event only.
+That also gives the author the possibility to remove themselves from the owners list optionally.
 
 ```yaml
 name: codeowners
 
 on:
   pull_request_target:
-    branches: 
+    branches:
       - master
-    types: 
+    types:
       - ready_for_review
+      - review_request_removed
 
 jobs:
   update:
     runs-on: ubuntu-latest
     steps:
     - name: checkout code
-      uses: actions/checkout@master
+      uses: actions/checkout@v2.3.2
       with:
         repository: ${{ github.event.pull_request.head.repo.full_name }}
         ref: ${{ github.head_ref }}
     - name: update code owners
       uses: gofunky/update-codeowners@master
       with:
-        distribution: 20
-        path: .github/CODEOWNERS
+        distribution: 25
     - name: commit changed files
       id: committed
-      uses: stefanzweifel/git-auto-commit-action@master
+      uses: stefanzweifel/git-auto-commit-action@v4.5.1
       with:
         commit_message: 'chore(meta): update code owners'
         branch: ${{ github.head_ref }}
         file_pattern: 'CODEOWNERS'
+    - uses: christianvuerings/add-labels@v1.1
+      if: ${{ steps.committed.outputs.changes_detected == 'true' }}
+      with:
+        labels: |
+          owned
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
