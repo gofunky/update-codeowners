@@ -1,0 +1,79 @@
+name: build
+
+on:
+  push:
+    branches: [ master ]
+  pull_request_target:
+    branches: [ master ]
+
+jobs:
+  test:
+    name: test this repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v2.3.2
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.head_ref }}
+      - name: update code owners
+        uses: ./
+        with:
+          distribution: 50
+          path: .github/CODEOWNERS.test
+      - name: verify contents of generated file
+        id: verify1
+        continue-on-error: true
+        run: |
+          grep -q ".gitignore matthias.fax@gmail.com" .github/CODEOWNERS.test
+          echo "::set-env name=status::success"
+      - name: verify contents of generated file (fallback)
+        id: verify2
+        continue-on-error: true
+        run: |
+          grep -q ".gitignore matfax@users.noreply.github.com" .github/CODEOWNERS.test
+          echo "::set-env name=status::success"
+      - name: fail if neither address is matched
+        if: env.status != 'success'
+        run: |
+          echo "::error:: the expected owner could not be found in the test file"
+          exit 1
+      - uses: actions/upload-artifact@v2.1.4
+        with:
+          name: ${{ github.job }}-owners
+          path: .github/CODEOWNERS.test
+  invalid:
+    name: test invalid
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v2.3.2
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.head_ref }}
+      - name: update code owners
+        uses: ./
+        with:
+          distribution: 101
+          path: .github/CODEOWNERS.test
+      - name: verify contents of generated file
+        id: verify1
+        continue-on-error: true
+        run: |
+          grep -q ".gitignore matthias.fax@gmail.com" .github/CODEOWNERS.test
+          echo "::set-env name=status::success"
+      - name: verify contents of generated file (fallback)
+        id: verify2
+        continue-on-error: true
+        run: |
+          grep -q ".gitignore matfax@users.noreply.github.com" .github/CODEOWNERS.test
+          echo "::set-env name=status::success"
+      - name: fail if either address is matched
+        if: env.status == 'success'
+        run: |
+          echo "::error:: the expected owner could be found in the test file even though the distribution input was invalid"
+          exit 1
+      - uses: actions/upload-artifact@v2.1.4
+        with:
+          name: ${{ github.job }}-owners
+          path: .github/CODEOWNERS.test
