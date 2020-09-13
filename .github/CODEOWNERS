@@ -1,1 +1,15 @@
-test
+.github/CODEOWNERS matfax@users.noreply.github.com
+.github/dependabot.yml matfax@users.noreply.github.com
+.github/issue_label_bot.yaml matfax@users.noreply.github.com
+.github/renovate.json matfax@users.noreply.github.com
+.github/toc.yml matfax@users.noreply.github.com
+.github/workflows/docs.yml matfax@users.noreply.github.com
+.github/workflows/example.yml matfax@users.noreply.github.com
+.github/workflows/rebase.yml matfax@users.noreply.github.com
+.github/workflows/test.yml matfax@users.noreply.github.com
+.gitignore matfax@users.noreply.github.com
+Dockerfile matfax@users.noreply.github.com
+LICENSE matfax@users.noreply.github.com
+README.md matfax@users.noreply.github.com
+action.yml matfax@users.noreply.github.com
+entrypoint.sh matfax@users.noreply.github.com
