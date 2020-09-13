@@ -22,12 +22,22 @@ jobs:
           distribution: 50
           path: .github/CODEOWNERS.test
       - name: verify contents of generated file
-        id: verify
+        id: verify1
         continue-on-error: true
-        run: grep -q ".gitignore matthias.fax@gmail.com" .github/CODEOWNERS.test
+        run: |
+          grep -q ".gitignore matthias.fax@gmail.com" .github/CODEOWNERS.test
+          echo "::set-env name=status::success"
       - name: verify contents of generated file (fallback)
-        if: steps.verify.outputs.status != 'success'
-        run: grep -q ".gitignore matfax@users.noreply.github.com" .github/CODEOWNERS.test
+        id: verify2
+        continue-on-error: true
+        run: |
+          grep -q ".gitignore matfax@users.noreply.github.com" .github/CODEOWNERS.test
+          echo "::set-env name=status::success"
+      - name: fail if neither address is matched
+        if: env.status != 'success'
+        run: |
+          echo "::error:: the expected owner could not be found in the test file"
+          exit 1
       - uses: actions/upload-artifact@v2.1.4
         with:
           name: test
