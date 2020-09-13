@@ -16,8 +16,7 @@ owners() {
     files=$(printf "%s\n%s" "$dirs" "$files" | sort | uniq)
   fi
 
-  # shellcheck disable=SC2116
-  for f in $(echo "$files"); do
+  for f in $files; do
     users=$( \
       git fame -eswMC --incl "$f/?([^/]*)$" \
       | tr '/' '|' \
