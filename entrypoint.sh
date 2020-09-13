@@ -7,11 +7,26 @@
 echo "Update code owners..."
 
 owners() {
-  for f in $(git ls-files); do
-    printf "%s " "$f"
-    git fame -esnwMC --incl "$f" | tr '/' '|' \
-      | awk -v DISTRIBUTION="$INPUT_DISTRIBUTION" -F '|' '(NR>6 && $6>=$DISTRIBUTION) {print $2}' \
-      | xargs echo
+  files=""
+  if [ -n "$INPUT_GRANULAR" ]; then
+    files=$(git ls-files)
+  else
+    dirs=$(git ls-tree -d -r --name-only HEAD)
+    files=$(git ls-tree --name-only HEAD)
+    files=$(printf "%s\n%s" "$dirs" "$files" | sort | uniq)
+  fi
+
+  # shellcheck disable=SC2116
+  for f in $(echo "$files"); do
+    users=$( \
+      git fame -eswMC --incl "$f/?([^/]*)$" \
+      | tr '/' '|' \
+      | awk -v DISTRIBUTION="$INPUT_DISTRIBUTION" -F '|' '(NR>6 && $6>=DISTRIBUTION) {print $2}' \
+      | xargs echo \
+      )
+    if [ -n "$users" ]; then
+      echo "$f $users"
+    fi
   done
 }
 

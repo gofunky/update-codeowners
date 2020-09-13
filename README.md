@@ -28,6 +28,11 @@ The default uses 20% of ownership. Set it to any integer without the percent cha
 The path defines the path to the CODEOWNERS file.
 The default uses the path to the `.github` directory.
 
+### granular
+
+By default, this action checks all files in the root, but groups recursive files into their parent directories.
+Set this input to any non-zero value (e.g. `true`) to enable full coverage of all recursive files.
+
 ## Example
 
 This is a typical example for a pull request workflow.
