@@ -28,9 +28,9 @@ jobs:
         branch: ${{ github.head_ref }}
         file_pattern: 'CODEOWNERS'
     - uses: christianvuerings/add-labels@v1.1
-        if: ${{ steps.committed.outputs.changes_detected == 'true' }}
-        with:
-          labels: |
-            owned
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      if: ${{ steps.committed.outputs.changes_detected == 'true' }}
+      with:
+        labels: |
+          owned
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
