@@ -11,13 +11,13 @@ inputs:
       considered a code owner.
       The default uses 20% of ownership. Set it to any integer without the percent character to override the default.
     required: false
-    default: '20'
+    default: '25'
   path:
     description: |
       This defines the path to the CODEOWNERS file.
       The default uses the path to the `.github` directory.
     required: false
-    default: .github/CODEOWNERS
+    default: '.github/CODEOWNERS'
   granular:
     description: |
       By default, this action checks all files in the root, but groups recursive files into their parent directories.
