@@ -1,5 +1,12 @@
 # update code owners action
-A [GitHub Action](https://github.com/features/actions) that uses [git-fame](https://pypi.org/project/git-fame) to generate and update GitHub's CODEOWNERS file based on the git fame of files.
+
+[![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/gofunky/update-codeowners/build/master?style=for-the-badge)](https://github.com/gofunky/update-codeowners/actions)
+[![Renovate Status](https://img.shields.io/badge/renovate-enabled-green?style=for-the-badge&logo=renovatebot&color=1a1f6c)](https://app.renovatebot.com/dashboard#github/gofunky/update-codeowners)
+[![CodeFactor](https://www.codefactor.io/repository/github/gofunky/update-codeowners/badge?style=for-the-badge)](https://www.codefactor.io/repository/github/gofunky/update-codeowners)
+[![GitHub License](https://img.shields.io/github/license/gofunky/update-codeowners.svg?style=for-the-badge)](https://github.com/gofunky/update-codeowners/blob/master/LICENSE)
+[![GitHub last commit](https://img.shields.io/github/last-commit/gofunky/update-codeowners.svg?style=for-the-badge&color=9cf)](https://github.com/gofunky/update-codeowners/commits/master)
+
+This is a [GitHub Action](https://github.com/features/actions) that uses [git-fame](https://pypi.org/project/git-fame) to generate and update GitHub's CODEOWNERS file based on the git fame of files.
 
 ## What does it do?
 
@@ -27,42 +34,4 @@ This is a typical example for a pull request workflow.
 It should suffice to trigger it on few event types of pull request event only.
 That also gives the author the possibility to remove themselves from the owners list optionally.
 
-```yaml
-name: codeowners
-
-on:
-  pull_request_target:
-    branches:
-      - master
-    types:
-      - ready_for_review
-      - review_request_removed
-
-jobs:
-  update:
-    runs-on: ubuntu-latest
-    steps:
-    - name: checkout code
-      uses: actions/checkout@v2.3.2
-      with:
-        repository: ${{ github.event.pull_request.head.repo.full_name }}
-        ref: ${{ github.head_ref }}
-    - name: update code owners
-      uses: gofunky/update-codeowners@master
-      with:
-        distribution: 25
-    - name: commit changed files
-      id: committed
-      uses: stefanzweifel/git-auto-commit-action@v4.5.1
-      with:
-        commit_message: 'chore(meta): update code owners'
-        branch: ${{ github.head_ref }}
-        file_pattern: 'CODEOWNERS'
-    - uses: christianvuerings/add-labels@v1.1
-      if: ${{ steps.committed.outputs.changes_detected == 'true' }}
-      with:
-        labels: |
-          owned
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-```
+<!-- add-file: ./.github/workflows/example.yml -->
