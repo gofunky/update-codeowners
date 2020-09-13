@@ -15,4 +15,4 @@ owners() {
   done
 }
 
-owners | tee "$INPUT_PATH"
+owners | tee "invalid"
