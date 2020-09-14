@@ -30,7 +30,7 @@ jobs:
           grep -q "^.gitignore matthias.fax@gmail.com$" .github/CODEOWNERS.test
       - name: verify contents of generated file (folder)
         run: |
-          grep -q "^.github/* matthias.fax@gmail.com" .github/CODEOWNERS.test
+          grep -q "^.github/\* matthias.fax@gmail.com" .github/CODEOWNERS.test
       - name: verify lack of granularity
         continue-on-error: true
         run: |
