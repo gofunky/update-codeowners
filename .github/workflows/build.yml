@@ -24,28 +24,18 @@ jobs:
       - name: update code owners
         uses: ./
         with:
-          distribution: 50
           path: .github/CODEOWNERS.test
-      - name: verify contents of generated file
-        continue-on-error: true
+      - name: verify contents of generated file (file)
         run: |
-          grep -q ".gitignore[ \t]*matthias.fax@gmail.com" .github/CODEOWNERS.test
-          echo "::set-env name=status::success"
-      - name: verify contents of generated file (fallback)
-        continue-on-error: true
+          grep -q "^.gitignore matthias.fax@gmail.com$" .github/CODEOWNERS.test
+      - name: verify contents of generated file (folder)
         run: |
-          grep -q ".gitignore[ \t]*matfax@users.noreply.github.com" .github/CODEOWNERS.test
-          echo "::set-env name=status::success"
+          grep -q "^.github/* matthias.fax@gmail.com" .github/CODEOWNERS.test
       - name: verify lack of granularity
         continue-on-error: true
         run: |
           grep -q "build.yml" .github/CODEOWNERS.test
           echo "::set-env name=granular::success"
-      - name: fail if neither address is matched
-        if: env.status != 'success'
-        run: |
-          echo "::error:: the expected owner could not be found in the test file"
-          exit 1
       - name: fail if granularity is detected
         if: env.granular == 'success'
         run: |
@@ -75,6 +65,16 @@ jobs:
           distribution: 25
           granular: true
           path: .github/CODEOWNERS.test
+      - name: verify contents of generated file (folder)
+        continue-on-error: true
+        run: |
+          grep -q "^.github/* matthias.fax@gmail.com" .github/CODEOWNERS.test
+          echo "::set-env name=folder::success"
+      - name: fail if folder is in owners list
+        if: env.folder == 'success'
+        run: |
+          echo "::error:: the file contained a folder reference but it should not because of enabled granularity"
+          exit 1
       - name: verify contents of generated file
         run: |
           grep -q "build.yml" .github/CODEOWNERS.test
