@@ -20,7 +20,7 @@ fi
 identification() {
   read -r email
   if [ -n "$INPUT_USERNAME" ]; then
-    if username=$(github-username "$email" --token="$GITHUB_TOKEN");
+    if username=$(github-username $email --token=$GITHUB_TOKEN);
     then
       echo "@$username"
     else
