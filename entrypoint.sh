@@ -19,7 +19,7 @@ fi
 
 identification() {
   read -r email
-  if [ -n "$INPUT_USERNAME" ]; then
+  if [ -n "$INPUT_USERNAME" ] && [ -n "$email" ]; then
     if ! username=$( \
       curl "https://api.github.com/search/users?q=$email+in:email" \
         -H "Accept: application/vnd.github.v3+json" \
