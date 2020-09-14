@@ -24,7 +24,7 @@ identification() {
       curl "https://api.github.com/search/users?q=$email+in:email" \
         -H "Accept: application/vnd.github.v3+json" \
         -H "Authorization: Bearer $INPUT_TOKEN" \
-        | jq -e '.items[0].login | gsub("[\\n\\t]"; "")' \
+        | jq -e '.items[0].login | gsub("[\"]"; "")' \
     );
     then
       if ! commit_username_json=$( \
@@ -35,7 +35,7 @@ identification() {
       then
         echo "$email"
       else
-        if ! commit_username=$(echo "$commit_username_json" | jq -e '.items[0].author.login | gsub("[\\n\\t]"; "")');
+        if ! commit_username=$(echo "$commit_username_json" | jq -e '.items[0].author.login | gsub("[\"]"; "")');
         then
           >&2 echo "::warning:: $commit_username_json"
           echo "$email"
