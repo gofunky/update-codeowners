@@ -33,6 +33,7 @@ jobs:
       uses: gofunky/update-codeowners@v0.2.1
       with:
         distribution: 25
+        username: true
     - name: commit changed files
       id: committed
       uses: stefanzweifel/git-auto-commit-action@v4.5.1
