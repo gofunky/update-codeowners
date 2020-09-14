@@ -60,6 +60,8 @@ on:
 jobs:
   update:
     runs-on: ubuntu-latest
+    # only apply on unmerged pull requests
+    if: github.event.pull_request.merged_by == 'null'
     steps:
     - name: checkout code
       uses: actions/checkout@v2.3.2
