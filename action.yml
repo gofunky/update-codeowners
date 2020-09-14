@@ -30,6 +30,12 @@ inputs:
       Set this input to any non-zero value (e.g. `true`) to derive the GitHub usernames and use them instead.
     required: false
     default: ''
+  token:
+    description: |
+      A GitHub token has to be set if the username should be determined.
+      This is necessary because the GitHub API has a rate limit.
+    required: false
+    default: ${{ github.token }}
 runs:
   using: docker
   image: Dockerfile
