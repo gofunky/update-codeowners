@@ -63,8 +63,13 @@ jobs:
     - name: checkout code
       uses: actions/checkout@v2.3.2
       with:
+        # this only makes sure that forks are built as well
         repository: ${{ github.event.pull_request.head.repo.full_name }}
         ref: ${{ github.head_ref }}
+        # the fetch depth 0 (=all) is important
+        fetch-depth: 0
+        # the token is necessary for checks to rerun after auto commit
+        token: ${{ secrets.PAT }}
     - name: update code owners
       uses: gofunky/update-codeowners@master
       with:
@@ -74,13 +79,11 @@ jobs:
       uses: stefanzweifel/git-auto-commit-action@v4.5.1
       with:
         commit_message: 'chore(meta): update code owners'
-        branch: ${{ github.head_ref }}
-        file_pattern: '.github/CODEOWNERS'
+        file_pattern: .github/CODEOWNERS
     - uses: christianvuerings/add-labels@v1.1
       if: ${{ steps.committed.outputs.changes_detected == 'true' }}
       with:
-        labels: |
-          owned
+        labels: owned
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
