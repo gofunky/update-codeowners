@@ -27,6 +27,7 @@ identification() {
         | jq -e '.items[0].login' \
     );
     then
+      >&2 echo "$username"
       if ! commit_username_json=$( \
         curl "https://api.github.com/search/commits?q=author-email:$email&sort=author-date&per_page=1" \
           -H "Accept: application/vnd.github.cloak-preview" \
@@ -36,6 +37,7 @@ identification() {
         >&2 echo "$commit_username_json"
         echo "$email"
       else
+        >&2 echo "$commit_username_json"
         if ! commit_username=$(echo "$commit_username_json" | jq -e '.items[0].author.login');
         then
           >&2 echo "$commit_username"
