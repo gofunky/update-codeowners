@@ -48,9 +48,9 @@ name: codeowners
 
 on:
   pull_request_target:
-    branches: 
+    branches:
       - master
-    types: 
+    types:
       - ready_for_review
       - review_request_removed
       - reopened
