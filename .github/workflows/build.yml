@@ -27,10 +27,10 @@ jobs:
           path: .github/CODEOWNERS.test
       - name: verify contents of generated file (file)
         run: |
-          grep -q "^.gitignore matthias.fax@gmail.com$" .github/CODEOWNERS.test
+          grep -q "^/.gitignore matthias.fax@gmail.com$" .github/CODEOWNERS.test
       - name: verify contents of generated file (folder)
         run: |
-          grep -q "^.github/\* matthias.fax@gmail.com" .github/CODEOWNERS.test
+          grep -q "^/.github/\* matthias.fax@gmail.com" .github/CODEOWNERS.test
       - name: verify lack of granularity
         continue-on-error: true
         run: |
@@ -68,7 +68,7 @@ jobs:
       - name: verify contents of generated file (folder)
         continue-on-error: true
         run: |
-          grep -q "^.github/* matthias.fax@gmail.com" .github/CODEOWNERS.test
+          grep -q "^.github/[. \t]*matthias.fax@gmail.com" .github/CODEOWNERS.test
           echo "::set-env name=folder::success"
       - name: fail if folder is in owners list
         if: env.folder == 'success'
