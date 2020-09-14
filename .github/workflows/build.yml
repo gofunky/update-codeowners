@@ -41,6 +41,55 @@ jobs:
         run: |
           echo "::error:: the test file contained granular file references"
           exit 1
+      - name: verify lack of username
+        continue-on-error: true
+        run: |
+          grep -q "@matfax" .github/CODEOWNERS.test
+          echo "::set-env name=username::success"
+      - name: fail if username is detected
+        if: env.username == 'success'
+        run: |
+          echo "::error:: the generated file contained a username although the input was disabled"
+          exit 1
+      - uses: actions/upload-artifact@v2.1.4
+        with:
+          name: ${{ github.job }}-owners
+          path: .github/CODEOWNERS.test
+  username:
+    name: test with username
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v2.3.2
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+      - name: cache docker layers
+        uses: satackey/action-docker-layer-caching@v0.0.8
+        with:
+          key: docker-layers-${{ hashFiles('Dockerfile') }}-${{ hashFiles('entrypoint.sh') }}
+      - name: update code owners
+        uses: ./
+        with:
+          path: .github/CODEOWNERS.test
+          username: true
+      - name: verify contents of generated file (file)
+        run: |
+          grep -q "^/.gitignore @matfax$" .github/CODEOWNERS.test
+      - name: verify contents of generated file (folder)
+        run: |
+          grep -q "^/.github/\* @matfax" .github/CODEOWNERS.test
+      - name: verify lack of email address
+        continue-on-error: true
+        run: |
+          grep -q "matthias.fax@gmail.com" .github/CODEOWNERS.test
+          echo "::set-env name=email::success"
+      - name: fail if email is detected
+        if: env.email == 'success'
+        run: |
+          echo "::error:: the generated file still contained an email address"
+          exit 1
       - uses: actions/upload-artifact@v2.1.4
         with:
           name: ${{ github.job }}-owners
