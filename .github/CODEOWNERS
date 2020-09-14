@@ -1,7 +1,7 @@
-/.github/* matthias.fax@gmail.com
-/.github/workflows/* matthias.fax@gmail.com
-/.gitignore matthias.fax@gmail.com
-/Dockerfile matthias.fax@gmail.com
-/README.md matthias.fax@gmail.com
-/action.yml matthias.fax@gmail.com
-/entrypoint.sh matthias.fax@gmail.com
+/.github/* @matfax
+/.github/workflows/* @matfax
+/.gitignore @matfax
+/Dockerfile @matfax
+/README.md @matfax
+/action.yml @matfax
+/entrypoint.sh @matfax
