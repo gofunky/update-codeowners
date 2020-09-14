@@ -24,14 +24,14 @@ identification() {
       curl "https://api.github.com/search/users?q=$email+in:email" \
         -H "Accept: application/vnd.github.v3+json" \
         -H "authorization: Bearer $GITHUB_TOKEN" \
-        | jq -e '.items[0].login'
+        | jq -e '.items[0].login' \
     );
     then
       if ! commit_username=$( \
         curl "https://api.github.com/search/commits?q=author-email:$email&sort=author-date&per_page=1" \
           -H "Accept: application/vnd.github.cloak-preview" \
           -H "authorization: Bearer $GITHUB_TOKEN" \
-          | jq -e '.items[0].author.login'
+          | jq -e '.items[0].author.login' \
       );
       then
         echo "$email"
