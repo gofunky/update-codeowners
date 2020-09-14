@@ -9,7 +9,7 @@ title: Overview
 [![GitHub License](https://img.shields.io/github/license/gofunky/update-codeowners.svg?style=for-the-badge)](https://github.com/gofunky/update-codeowners/blob/master/LICENSE)
 [![GitHub last commit](https://img.shields.io/github/last-commit/gofunky/update-codeowners.svg?style=for-the-badge&color=9cf)](https://github.com/gofunky/update-codeowners/commits/master)
 
-This is a [GitHub Action](https://github.com/features/actions) that uses [git-fame](https://pypi.org/project/git-fame) to generate and update GitHub's CODEOWNERS file based on the git fame of files.
+This is a [GitHub Action](https://github.com/features/actions) that uses [git-fame](https://pypi.org/project/git-fame) to generate and update GitHub's CODEOWNERS file based on the git fame of individual files.
 
 ## What does it do?
 
