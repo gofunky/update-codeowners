@@ -32,11 +32,19 @@ owners() {
     users=$( \
       git fame -eswMC --incl "$file/?[^/]*\.?[^/]*$" \
       | tr '/' '|' \
-      | awk -v "dist=$DISTRIBUTION" -F '|' '(NR>6 && $6>=dist) {print $2}' \
+      | awk -v "dist=$DISTRIBUTION" -F '|' '(NR>6 && $6>=dist) {gsub(/ /, "", $2); print $2}' \
     )
     if [ "$?" -eq 0 ]; then
       if [ -n "$users" ]; then
-        echo "$file $users"
+        if [ -n "$INPUT_GRANULAR" ]; then
+          echo "$file $users"
+        else
+          if echo "$dirs" | grep -w "$file" > /dev/null; then
+              echo "$file/* $users"
+          else
+              echo "$file $users"
+          fi
+        fi
       fi
     else
       echo "::error:: git fame command did not succeed"
