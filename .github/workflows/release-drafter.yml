@@ -1,18 +1,13 @@
 name: draft release
 
 on:
-  pull_request_target:
+  push:
     branches:
       - master
-    types:
-      - closed
-      - labeled
-      - unlabeled
 
 jobs:
   update:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged_by != ''
     steps:
       - uses: release-drafter/release-drafter@v5.11.0
         env:
