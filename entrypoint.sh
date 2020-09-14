@@ -37,12 +37,12 @@ owners() {
     if [ "$?" -eq 0 ]; then
       if [ -n "$users" ]; then
         if [ -n "$INPUT_GRANULAR" ]; then
-          echo "$file $users"
+          echo "/$file $users"
         else
           if echo "$dirs" | grep -w "$file" > /dev/null; then
-              echo "$file/* $users"
+              echo "/$file/* $users"
           else
-              echo "$file $users"
+              echo "/$file $users"
           fi
         fi
       fi
