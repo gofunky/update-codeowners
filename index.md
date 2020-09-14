@@ -39,8 +39,9 @@ Set this input to any non-zero value (e.g. `true`) to enable full coverage of al
 ## Example
 
 This is a typical example for a pull request workflow.
-It should suffice to trigger it on few event types of pull request event only.
+It should suffice to trigger it on few event types of pull request events only.
 That also gives the author the possibility to remove themselves from the owners list optionally.
+Make sure to use `fetch-depth: 0` because otherwise, no git fame will be detected due to the lack of history.
 
 <!-- add-file: ./.github/workflows/example.yml -->
 ``` yml 
