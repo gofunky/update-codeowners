@@ -43,7 +43,7 @@ jobs:
       - name: commit changed files
         id: committed
         if: ${{ github.head_ref != '' }}
-        uses: stefanzweifel/git-auto-commit-action@v4.5.0
+        uses: stefanzweifel/git-auto-commit-action@v4.5.1
         with:
           commit_message: 'docs(markdown): include and update examples'
           branch: ${{ github.head_ref }}
@@ -88,7 +88,7 @@ jobs:
           cat README.md >> index.md
           sed -i 's/markdown-add-files//g' index.md
       - name: commit changed files
-        uses: stefanzweifel/git-auto-commit-action@v4.4.1
+        uses: stefanzweifel/git-auto-commit-action@v4.5.1
         with:
           commit_user_name: ${{ github.event.pusher.name }}
           commit_user_email: ${{ github.event.pusher.email }}
