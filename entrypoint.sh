@@ -24,23 +24,20 @@ identification() {
       curl "https://api.github.com/search/users?q=$email+in:email" \
         -H "Accept: application/vnd.github.v3+json" \
         -H "Authorization: Bearer $INPUT_TOKEN" \
-        | jq -e '.items[0].login' \
+        | jq -e '.items[0].login | gsub("[\\n\\t]"; "")' \
     );
     then
-      >&2 echo "$username"
       if ! commit_username_json=$( \
         curl "https://api.github.com/search/commits?q=author-email:$email&sort=author-date&per_page=1" \
           -H "Accept: application/vnd.github.cloak-preview" \
           -H "Authorization: Bearer $INPUT_TOKEN" \
       );
       then
-        >&2 echo "$commit_username_json"
         echo "$email"
       else
-        >&2 echo "$commit_username_json"
-        if ! commit_username=$(echo "$commit_username_json" | jq -e '.items[0].author.login');
+        if ! commit_username=$(echo "$commit_username_json" | jq -e '.items[0].author.login | gsub("[\\n\\t]"; "")');
         then
-          >&2 echo "$commit_username"
+          >&2 echo "::warning:: $commit_username_json"
           echo "$email"
         else
           echo "@$commit_username"
