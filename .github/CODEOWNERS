@@ -3,4 +3,4 @@
 .gitignore matthias.fax@gmail.com
 README.md matthias.fax@gmail.com
 action.yml matthias.fax@gmail.com
-entrypoint.sh matthias.fax@gmail.com
+/entrypoint.sh matthias.fax@gmail.com
