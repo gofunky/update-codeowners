@@ -20,11 +20,26 @@ fi
 identification() {
   read -r email
   if [ -n "$INPUT_USERNAME" ]; then
-    if username=$(github-username $email --token=$GITHUB_TOKEN);
+    if ! username=$( \
+      curl "https://api.github.com/search/users?q=$email+in:email" \
+        -H "Accept: application/vnd.github.v3+json" \
+        -H "Authorization: Bearer {$GITHUB_TOKEN}" \
+        | jq -e '.items[0].login'
+    );
     then
-      echo "@$username"
+      if ! commit_username=$( \
+        curl "https://api.github.com/search/commits?q=author-email:$email&sort=author-date&per_page=1" \
+          -H "Accept: application/vnd.github.cloak-preview" \
+          -H "Authorization: Bearer {$GITHUB_TOKEN}" \
+          | jq -e '.items[0].author.login'
+      );
+      then
+        echo "$email"
+      else
+        echo "@$commit_username"
+      fi
     else
-      echo "$email"
+      echo "@$username"
     fi
   else
     echo "$email"
@@ -43,13 +58,16 @@ owners() {
   fi
 
   for file in $files; do
-    if users=$( \
+    if ! users=$( \
       git fame -eswMC --incl "$file/?[^/]*\.?[^/]*$" \
       | tr '/' '|' \
       | awk -v "dist=$DISTRIBUTION" -F '|' '(NR>6 && $6>=dist) {gsub(/ /, "", $2); print $2}' \
       | identification
     );
     then
+      echo "::error:: git fame command did not succeed"
+      exit 1
+    else
       if [ -n "$users" ]; then
         if [ -n "$INPUT_GRANULAR" ]; then
           echo "/$file $users"
@@ -61,9 +79,6 @@ owners() {
           fi
         fi
       fi
-    else
-      echo "::error:: git fame command did not succeed"
-      exit 1
     fi
   done
 }
