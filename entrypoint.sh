@@ -17,6 +17,20 @@ if [ -n "$INPUT_GRANULAR" ]; then
   echo "Action enabled granular file processing"
 fi
 
+identification() {
+  read -r email
+  if [ -n "$INPUT_USERNAME" ]; then
+    if username=$(github-username "$email" --token="$GITHUB_TOKEN");
+    then
+      echo "@$username"
+    else
+      echo "$email"
+    fi
+  else
+    echo "$email"
+  fi
+}
+
 owners() {
   files=""
 
@@ -29,12 +43,13 @@ owners() {
   fi
 
   for file in $files; do
-    users=$( \
+    if users=$( \
       git fame -eswMC --incl "$file/?[^/]*\.?[^/]*$" \
       | tr '/' '|' \
       | awk -v "dist=$DISTRIBUTION" -F '|' '(NR>6 && $6>=dist) {gsub(/ /, "", $2); print $2}' \
-    )
-    if [ "$?" -eq 0 ]; then
+      | identification
+    );
+    then
       if [ -n "$users" ]; then
         if [ -n "$INPUT_GRANULAR" ]; then
           echo "/$file $users"

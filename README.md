@@ -33,6 +33,11 @@ The default uses the path to the `.github` directory.
 By default, this action checks all files in the root, but groups recursive files into their parent directories.
 Set this input to any non-zero value (e.g. `true`) to enable full coverage of all recursive files.
 
+### username
+
+By default, this action uses the email addresses of users.
+Set this input to any non-zero value (e.g. `true`) to derive the GitHub usernames and use them instead.
+
 ## Example
 
 This is a typical example for a pull request workflow.

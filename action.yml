@@ -24,6 +24,12 @@ inputs:
       Set this input to any non-zero value (e.g. `true`) to enable full coverage of all recursive files.
     required: false
     default: ''
+  username:
+    description: |
+      By default, this action uses the email addresses of users.
+      Set this input to any non-zero value (e.g. `true`) to derive the GitHub usernames and use them instead.
+    required: false
+    default: ''
 runs:
   using: docker
   image: Dockerfile
