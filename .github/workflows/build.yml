@@ -96,6 +96,16 @@ jobs:
         run: |
           echo "::error:: the generated file still contained an email address"
           exit 1
+      - name: verify lack of LICENSE glob
+        continue-on-error: true
+        run: |
+          grep -q "LICENSE" .github/CODEOWNERS.test
+          echo "::set-env name=license::success"
+      - name: fail if license is detected
+        if: env.license == 'success'
+        run: |
+          echo "::error:: the generated file contained a LICENSE glob"
+          exit 1
       - uses: actions/upload-artifact@v2.1.4
         with:
           name: ${{ github.job }}-owners
