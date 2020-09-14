@@ -21,6 +21,9 @@ jobs:
         uses: satackey/action-docker-layer-caching@v0.0.8
         with:
           key: docker-layers-${{ hashFiles('Dockerfile') }}-${{ hashFiles('entrypoint.sh') }}
+          restore-keys: |
+            docker-layers-${{ hashFiles('Dockerfile') }}-${{ hashFiles('entrypoint.sh') }}
+            docker-layers-${{ hashFiles('Dockerfile') }}
       - name: update code owners
         uses: ./
         with:
@@ -69,6 +72,9 @@ jobs:
         uses: satackey/action-docker-layer-caching@v0.0.8
         with:
           key: docker-layers-${{ hashFiles('Dockerfile') }}-${{ hashFiles('entrypoint.sh') }}
+          restore-keys: |
+            docker-layers-${{ hashFiles('Dockerfile') }}-${{ hashFiles('entrypoint.sh') }}
+            docker-layers-${{ hashFiles('Dockerfile') }}
       - name: update code owners
         uses: ./
         with:
@@ -108,6 +114,9 @@ jobs:
         uses: satackey/action-docker-layer-caching@v0.0.8
         with:
           key: docker-layers-${{ hashFiles('Dockerfile') }}-${{ hashFiles('entrypoint.sh') }}
+          restore-keys: |
+            docker-layers-${{ hashFiles('Dockerfile') }}-${{ hashFiles('entrypoint.sh') }}
+            docker-layers-${{ hashFiles('Dockerfile') }}
       - name: update code owners
         uses: ./
         with:
@@ -145,6 +154,9 @@ jobs:
         uses: satackey/action-docker-layer-caching@v0.0.8
         with:
           key: docker-layers-${{ hashFiles('Dockerfile') }}-${{ hashFiles('entrypoint.sh') }}
+          restore-keys: |
+            docker-layers-${{ hashFiles('Dockerfile') }}-${{ hashFiles('entrypoint.sh') }}
+            docker-layers-${{ hashFiles('Dockerfile') }}
       - name: update code owners
         uses: ./
         with:
