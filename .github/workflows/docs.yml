@@ -30,7 +30,7 @@ jobs:
         uses: nwylynko/markdown-add-files@v2.1.1
       - name: create pull request
         if: github.head_ref == ''
-        uses: peter-evans/create-pull-request@v3.3.0
+        uses: peter-evans/create-pull-request@v3.4.0
         with:
           commit-message: 'docs(markdown): include and update examples'
           title: 'docs(markdown): include and update examples'
