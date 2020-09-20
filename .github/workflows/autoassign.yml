@@ -1,0 +1,27 @@
+name: comment
+
+on:
+  issue_comment:
+    branches:
+      - master
+    types:
+      - created
+
+jobs:
+  assign:
+    name: check for assignation
+    runs-on: ubuntu-latest
+    steps:
+      - name: check contents
+        uses: khan/pull-request-comment-trigger@1.0.0
+        id: check
+        with:
+          prefix_only: true
+          trigger: '@gofunky'
+          reaction: '+1'
+      - name: assign
+        if: steps.check.outputs.triggered == 'true'
+        uses: actions-ecosystem/action-add-assignees@v1.0.0
+        with:
+          github_token: ${{ secrets.BOT }}
+          assignees: gofunky-bot
