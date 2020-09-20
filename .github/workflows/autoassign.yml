@@ -14,7 +14,6 @@ jobs:
         uses: khan/pull-request-comment-trigger@1.0.0
         id: check
         with:
-          prefix_only: true
           trigger: '@gofunky'
           reaction: '+1'
         env:
