@@ -10,16 +10,14 @@ jobs:
     name: check for assignation
     runs-on: ubuntu-latest
     steps:
-      - name: check contents
-        uses: khan/pull-request-comment-trigger@1.0.0
-        id: check
+      - name: check comment contents
+        uses: actions-ecosystem/action-regex-match@v2.0.0
+        id: regex
         with:
-          trigger: '@gofunky'
-          reaction: '+1'
-        env:
-          GITHUB_TOKEN: ${{ secrets.BOT }}
+          text: ${{ github.event.comment.body }}
+          regex: '^@gofunky([-\/]bot)?\s+(.*?)\s*$'
       - name: assign
-        if: steps.check.outputs.triggered == 'true'
+        if: steps.regex.outputs.match != ''
         uses: actions-ecosystem/action-add-assignees@v1.0.0
         with:
           github_token: ${{ secrets.BOT }}
