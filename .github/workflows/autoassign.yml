@@ -2,8 +2,6 @@ name: comment
 
 on:
   issue_comment:
-    branches:
-      - master
     types:
       - created
 
@@ -19,6 +17,8 @@ jobs:
           prefix_only: true
           trigger: '@gofunky'
           reaction: '+1'
+        env:
+          GITHUB_TOKEN: ${{ secrets.BOT }}
       - name: assign
         if: steps.check.outputs.triggered == 'true'
         uses: actions-ecosystem/action-add-assignees@v1.0.0
