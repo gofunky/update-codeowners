@@ -72,7 +72,7 @@ jobs:
     if: github.event.pull_request.merged_by == ''
     steps:
     - name: checkout code
-      uses: actions/checkout@v2.3.2
+      uses: actions/checkout@v2.3.3
       with:
         # this only makes sure that forks are built as well
         repository: ${{ github.event.pull_request.head.repo.full_name }}
