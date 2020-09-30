@@ -32,7 +32,7 @@ The default uses 20% of ownership. Set it to any integer without the percent cha
 
 ### granular
 ![Required](https://img.shields.io/badge/Required-no-inactive?style=flat-square)
-![Default](https://img.shields.io/badge/Default--da39a3?style=flat-square)
+![Default](https://img.shields.io/badge/Default-''-inactive?style=flat-square)
 
 By default, this action checks all files in the root, but groups recursive files into their parent directories.
 Set this input to any non-zero value (e.g. `true`) to enable full coverage of all recursive files.
@@ -56,7 +56,7 @@ This is necessary because the GitHub API has a rate limit.
 
 ### username
 ![Required](https://img.shields.io/badge/Required-no-inactive?style=flat-square)
-![Default](https://img.shields.io/badge/Default--da39a3?style=flat-square)
+![Default](https://img.shields.io/badge/Default-''-inactive?style=flat-square)
 
 By default, this action uses the email addresses of users.
 Set this input to any non-zero value (e.g. `true`) to derive the GitHub usernames and use them instead.
