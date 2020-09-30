@@ -6,6 +6,7 @@ on:
       - master
     paths:
       - '**.md'
+      - '**.tpl'
       - '**example**'
       - '**/docs.yml'
   pull_request_target:
