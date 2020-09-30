@@ -28,6 +28,11 @@ jobs:
           token: ${{ secrets.PAT }}
       - name: update examples in markdown files
         uses: nwylynko/markdown-add-files@v2.1.1
+      - name: update action attributes
+        uses: Dirrk/action-docs@v1.0.1
+        with:
+          action_docs_git_push: false
+          action_docs_template_file: ./.github/action.tpl
       - name: create pull request
         if: github.head_ref == ''
         uses: peter-evans/create-pull-request@v3.4.0
