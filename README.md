@@ -15,6 +15,7 @@ feature doesn't provide any method for keeping the code owners list updated auto
 This action solves this by determining code owners based on the git fame of each file.
 Authors don't have to be asked for their addition based on subjective criteria anymore.
 
+<!--- BEGIN_ACTION_DOCS --->
 ## Inputs
 
 ### distribution
@@ -37,6 +38,7 @@ Set this input to any non-zero value (e.g. `true`) to enable full coverage of al
 
 By default, this action uses the email addresses of users.
 Set this input to any non-zero value (e.g. `true`) to derive the GitHub usernames and use them instead.
+<!--- END_ACTION_DOCS --->
 
 ## Example
 
