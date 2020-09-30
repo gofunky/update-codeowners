@@ -14,7 +14,7 @@
 
 {{ tmpl.Exec "escape_chars" $input.description }}
 {{- end }}
-
+{{ if (has $action "outputs") }}
 ## Outputs
 
 {{- range $key, $output := $action.outputs }}
@@ -22,4 +22,5 @@
 ### {{ tmpl.Exec "escape_chars" $key }}
 
 {{ if (has $output "description") }}{{ tmpl.Exec "escape_chars" $output.description }}{{ end }}
+{{- end }}
 {{- end }}
