@@ -17,7 +17,6 @@ Authors don't have to be asked for their addition based on subjective criteria a
 
 <!--- BEGIN_ACTION_DOCS --->
 ## Inputs
-
 ### distribution
 
 The distribution input defines the minimum percentage of code lines that are required for a contributor to being 
