@@ -36,7 +36,7 @@ jobs:
           action_docs_template_file: ./.github/action.tpl
       - name: fix file permissions
         run: |
-          chmod -R ugo+rwX .
+          sudo chmod -R ugo+rwX .
       - name: create pull request
         if: github.head_ref == ''
         uses: peter-evans/create-pull-request@v3.4.0
