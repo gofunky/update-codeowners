@@ -27,4 +27,4 @@ jobs:
       - name: self merge
         uses: orta/code-owner-self-merge@1.4.1
         env:
-          GITHUB_TOKEN: ${{ secrets.BOT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
