@@ -23,7 +23,7 @@ Authors don't have to be asked for their addition based on subjective criteria a
 
 ### distribution
 ![Required](https://img.shields.io/badge/Required-no-inactive?style=flat-square)
-![Default](https://img.shields.io/badge/Default-25-$2a$10$rapEOUNjsMeWduuGEy8fOOEBcVxT0BIU9iPkicMvUjvenx51A/q/q?style=flat-square)
+![Default](https://img.shields.io/badge/Default-25-f6e1126c?style=flat-square)
 
 The distribution input defines the minimum percentage of code lines that are required for a contributor to being
 considered a code owner.
@@ -32,7 +32,7 @@ The default uses 20% of ownership. Set it to any integer without the percent cha
 
 ### granular
 ![Required](https://img.shields.io/badge/Required-no-inactive?style=flat-square)
-![Default](https://img.shields.io/badge/Default--$2a$10$/sz3o9vhFHKqUv7aCtY0mexjZzjRRyD36.xRUoOu66VLiAIRzDtNW?style=flat-square)
+![Default](https://img.shields.io/badge/Default--da39a3ee?style=flat-square)
 
 By default, this action checks all files in the root, but groups recursive files into their parent directories.
 Set this input to any non-zero value (e.g. `true`) to enable full coverage of all recursive files.
@@ -40,7 +40,7 @@ Set this input to any non-zero value (e.g. `true`) to enable full coverage of al
 
 ### path
 ![Required](https://img.shields.io/badge/Required-no-inactive?style=flat-square)
-![Default](https://img.shields.io/badge/Default-.github/CODEOWNERS-$2a$10$c9V8kBCXBJbkqyd6S.URX.CJuGeAnWtFk5M.N1L76Q35BpBKE5yWm?style=flat-square)
+![Default](https://img.shields.io/badge/Default-.github/CODEOWNERS-7f9004ad?style=flat-square)
 
 This defines the path to the CODEOWNERS file.
 The default uses the path to the `.github` directory.
@@ -48,7 +48,7 @@ The default uses the path to the `.github` directory.
 
 ### token
 ![Required](https://img.shields.io/badge/Required-no-inactive?style=flat-square)
-![Default](https://img.shields.io/badge/Default-${{_github.token_}}-$2a$10$/K9JNQY2dvPuuTo.E5cuguHtDVqnX7fcvfT1CntQMhpj6pHyVqJP6?style=flat-square)
+![Default](https://img.shields.io/badge/Default-${{_github.token_}}-ef236677?style=flat-square)
 
 A GitHub token has to be set if the username should be determined.
 This is necessary because the GitHub API has a rate limit.
@@ -56,7 +56,7 @@ This is necessary because the GitHub API has a rate limit.
 
 ### username
 ![Required](https://img.shields.io/badge/Required-no-inactive?style=flat-square)
-![Default](https://img.shields.io/badge/Default--$2a$10$xBCu0YiJE9NdjultGjaV4e9EeSXKYQQJVRZrDz67bBdyHysTjVRs6?style=flat-square)
+![Default](https://img.shields.io/badge/Default--da39a3ee?style=flat-square)
 
 By default, this action uses the email addresses of users.
 Set this input to any non-zero value (e.g. `true`) to derive the GitHub usernames and use them instead.
