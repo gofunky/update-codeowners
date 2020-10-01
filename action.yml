@@ -3,13 +3,14 @@ author: matfax
 branding:
   icon: link-2
   color: white
-description: generate and update GitHub's CODEOWNERS file based on the git fame of files
+description: |
+  generate and update GitHub's CODEOWNERS file based on the git fame of files
 inputs:
   distribution:
     description: |
       The distribution input defines the minimum percentage of code lines that are required for a contributor to being
       considered a code owner.
-      The default uses 20% of ownership. Set it to any integer without the percent character to override the default.
+      Set it to any integer without the percent character to override the default.
     required: false
     default: '25'
   path:
@@ -32,8 +33,9 @@ inputs:
     default: ''
   token:
     description: |
-      A GitHub token has to be set if the username should be determined.
+      A GitHub token has to be set if `inputs.username` is enabled.
       This is necessary because the GitHub API has a rate limit.
+      The default token has sufficient permissions for the API.
     required: false
     default: ${{ github.token }}
 runs:
