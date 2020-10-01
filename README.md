@@ -24,7 +24,7 @@ Authors don't have to be asked for their addition based on subjective criteria a
 
 The distribution input defines the minimum percentage of code lines that are required for a contributor to being
 considered a code owner.
-The default uses 20% of ownership. Set it to any integer without the percent character to override the default.
+Set it to any integer without the percent character to override the default.
 
 
 ### granular
@@ -47,8 +47,9 @@ The default uses the path to the `.github` directory.
 ![Required](https://img.shields.io/badge/Required-no-inactive?style=flat-square)
 ![Default](https://img.shields.io/badge/Default-${{_github.token_}}-ef2366?style=flat-square)
 
-A GitHub token has to be set if the username should be determined.
+A GitHub token has to be set if `inputs.username` is enabled.
 This is necessary because the GitHub API has a rate limit.
+The default token has sufficient permissions for the API.
 
 
 ### username
