@@ -106,6 +106,12 @@ jobs:
       with:
         distribution: 25
         username: true
+    - uses: mszostok/codeowners-validator@v0.4.0
+      with:
+        checks: files,owners,duppatterns
+        experimental_checks: notowned
+        # the token is required only if the `owners` check is enabled
+        github_access_token: ${{ secrets.PAT }}
     - name: commit changed files
       id: committed
       uses: stefanzweifel/git-auto-commit-action@v4.5.1
