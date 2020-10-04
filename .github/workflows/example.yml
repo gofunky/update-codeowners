@@ -35,13 +35,15 @@ jobs:
         distribution: 25
         username: true
     - uses: mszostok/codeowners-validator@v0.4.0
+      id: validation
+      if: ${{ steps.committed.outputs.changes_detected == 'true' }}
       with:
         checks: files,owners,duppatterns
-        experimental_checks: notowned
         # the token is required only if the `owners` check is enabled
         github_access_token: ${{ secrets.PAT }}
     - name: commit changed files
       id: committed
+      if: ${{ steps.committed.outputs.changes_detected == 'true' }}
       uses: stefanzweifel/git-auto-commit-action@v4.5.1
       with:
         commit_message: 'chore(meta): update code owners'
