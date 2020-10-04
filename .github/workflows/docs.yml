@@ -9,6 +9,7 @@ on:
       - '**.tpl'
       - '**example**'
       - '**/docs.yml'
+      - '**/action.yml'
   pull_request_target:
     branches:
       - master
