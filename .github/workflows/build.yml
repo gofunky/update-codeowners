@@ -38,7 +38,7 @@ jobs:
         continue-on-error: true
         run: |
           grep -q "build.yml" .github/CODEOWNERS.test
-          echo "::set-env name=granular::success"
+          echo "granular=success" >> $GITHUB_ENV
       - name: fail if granularity is detected
         if: env.granular == 'success'
         run: |
@@ -48,7 +48,7 @@ jobs:
         continue-on-error: true
         run: |
           grep -q "@matfax" .github/CODEOWNERS.test
-          echo "::set-env name=username::success"
+          echo "username=success"  >> $GITHUB_ENV
       - name: fail if username is detected
         if: env.username == 'success'
         run: |
@@ -90,7 +90,7 @@ jobs:
         continue-on-error: true
         run: |
           grep -q "matthias.fax@gmail.com" .github/CODEOWNERS.test
-          echo "::set-env name=email::success"
+          echo "email=success" >> $GITHUB_ENV
       - name: fail if email is detected
         if: env.email == 'success'
         run: |
@@ -100,7 +100,7 @@ jobs:
         continue-on-error: true
         run: |
           grep -q "LICENSE" .github/CODEOWNERS.test
-          echo "::set-env name=license::success"
+          echo "license=success" >> $GITHUB_ENV
       - name: fail if license is detected
         if: env.license == 'success'
         run: |
@@ -137,7 +137,7 @@ jobs:
         continue-on-error: true
         run: |
           grep -q "^.github/[. \t]*matthias.fax@gmail.com" .github/CODEOWNERS.test
-          echo "::set-env name=folder::success"
+          echo "folder=success" >> $GITHUB_ENV
       - name: fail if folder is in owners list
         if: env.folder == 'success'
         run: |
@@ -176,12 +176,12 @@ jobs:
         continue-on-error: true
         run: |
           grep -q ".gitignore[ \t]*matthias.fax@gmail.com" .github/CODEOWNERS.test
-          echo "::set-env name=status::success"
+          echo "status=success" >> $GITHUB_ENV
       - name: verify contents of generated file (fallback)
         continue-on-error: true
         run: |
           grep -q ".gitignore[ \t]*matfax@users.noreply.github.com" .github/CODEOWNERS.test
-          echo "::set-env name=status::success"
+          echo "status=success" >> $GITHUB_ENV
       - name: fail if either address is matched
         if: env.status == 'success'
         run: |
