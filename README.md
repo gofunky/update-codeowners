@@ -117,7 +117,7 @@ jobs:
     - name: commit changed files
       id: committed
       if: ${{ steps.committed.outputs.changes_detected == 'true' }}
-      uses: stefanzweifel/git-auto-commit-action@v4.5.1
+      uses: stefanzweifel/git-auto-commit-action@v4.7.2
       with:
         commit_message: 'chore(meta): update code owners'
         file_pattern: .github/CODEOWNERS
