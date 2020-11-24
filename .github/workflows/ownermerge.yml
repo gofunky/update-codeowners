@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout code
-        uses: actions/checkout@v2.3.3
+        uses: actions/checkout@v2.3.4
       - name: self merge
         uses: orta/code-owner-self-merge@1.4.1
         env:
