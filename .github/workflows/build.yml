@@ -18,7 +18,7 @@ jobs:
           ref: ${{ github.head_ref }}
           fetch-depth: 0
       - name: cache docker layers
-        uses: satackey/action-docker-layer-caching@v0.0.8
+        uses: satackey/action-docker-layer-caching@v0.0.11
         with:
           key: docker-layers-${{ hashFiles('Dockerfile') }}-${{ hashFiles('entrypoint.sh') }}
           restore-keys: |
@@ -70,7 +70,7 @@ jobs:
           ref: ${{ github.head_ref }}
           fetch-depth: 0
       - name: cache docker layers
-        uses: satackey/action-docker-layer-caching@v0.0.8
+        uses: satackey/action-docker-layer-caching@v0.0.11
         with:
           key: docker-layers-${{ hashFiles('Dockerfile') }}-${{ hashFiles('entrypoint.sh') }}
           restore-keys: |
@@ -123,7 +123,7 @@ jobs:
           ref: ${{ github.head_ref }}
           fetch-depth: 0
       - name: cache docker layers
-        uses: satackey/action-docker-layer-caching@v0.0.8
+        uses: satackey/action-docker-layer-caching@v0.0.11
         with:
           key: docker-layers-${{ hashFiles('Dockerfile') }}-${{ hashFiles('entrypoint.sh') }}
           restore-keys: |
@@ -164,7 +164,7 @@ jobs:
           ref: ${{ github.head_ref }}
           fetch-depth: 0
       - name: cache docker layers
-        uses: satackey/action-docker-layer-caching@v0.0.8
+        uses: satackey/action-docker-layer-caching@v0.0.11
         with:
           key: docker-layers-${{ hashFiles('Dockerfile') }}-${{ hashFiles('entrypoint.sh') }}
           restore-keys: |
