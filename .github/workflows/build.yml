@@ -54,7 +54,7 @@ jobs:
         run: |
           echo "::error:: the generated file contained a username although the input was disabled"
           exit 1
-      - uses: actions/upload-artifact@v2.2.0
+      - uses: actions/upload-artifact@v3.1.1
         if: always()
         with:
           name: ${{ github.job }}-owners
@@ -107,7 +107,7 @@ jobs:
         run: |
           echo "::error:: the generated file contained a LICENSE glob"
           exit 1
-      - uses: actions/upload-artifact@v2.2.0
+      - uses: actions/upload-artifact@v3.1.1
         if: always()
         with:
           name: ${{ github.job }}-owners
@@ -148,7 +148,7 @@ jobs:
       - name: verify contents of generated file
         run: |
           grep -q "build.yml" .github/CODEOWNERS.test
-      - uses: actions/upload-artifact@v2.2.0
+      - uses: actions/upload-artifact@v3.1.1
         if: always()
         with:
           name: ${{ github.job }}-owners
@@ -190,7 +190,7 @@ jobs:
         run: |
           echo "::error:: the expected owner could be found in the test file even though the distribution input was invalid"
           exit 1
-      - uses: actions/upload-artifact@v2.2.0
+      - uses: actions/upload-artifact@v3.1.1
         if: always()
         with:
           name: ${{ github.job }}-owners
