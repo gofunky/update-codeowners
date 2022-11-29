@@ -40,7 +40,7 @@ jobs:
           sudo chmod -R ugo+rwX .
       - name: create pull request
         if: github.head_ref == ''
-        uses: peter-evans/create-pull-request@v3.5.0
+        uses: peter-evans/create-pull-request@v4.2.3
         with:
           commit-message: 'docs(markdown): include and update examples'
           title: 'docs(markdown): include and update examples'
